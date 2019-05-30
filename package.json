@@ -2,9 +2,12 @@
   "name": "tuesdays-tacos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,8 +20,18 @@
   },
   "homepage": "https://github.com/watkinsgljr/tuesdays-tacos#readme",
   "dependencies": {
+    "@types/express": "^4.16.1",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "typescript": "^3.5.1"
+  },
+  "files": [
+    "./bin/*",
+    "./lib/*"
+  ],
+  "typings": "./lib/index.d.ts",
+  "devDependencies": {
+    "tslint": "^5.16.0"
   }
 }
