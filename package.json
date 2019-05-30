@@ -32,6 +32,6 @@
   ],
   "typings": "./lib/index.d.ts",
   "devDependencies": {
-    "tslint": "^5.16.0"
+    "tslint": "^5.17.0"
   }
 }
