@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "mysql": "^2.17.1",
+    "systemjs": "^3.1.6",
     "typescript": "^3.5.1"
   },
   "files": [
@@ -33,5 +34,8 @@
   "typings": "./lib/index.d.ts",
   "devDependencies": {
     "tslint": "^5.17.0"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
