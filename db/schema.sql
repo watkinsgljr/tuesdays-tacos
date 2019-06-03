@@ -47,9 +47,8 @@ CREATE TABLE tacos_ordered
 	id int(10) NOT NULL AUTO_INCREMENT,
     order_id int(10) NOT NULL,
     taco_id int(10),
-    quantity int(10) NOT NULL,
-    customization varchar(255),
-    unit_price decimal(15,2) NOT NULL,
+    quantity int(10) NOT NULL default '1',
+    description varchar(255),
 	PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (taco_id) REFERENCES taco_menu(id)
@@ -61,7 +60,6 @@ CREATE TABLE drinks_ordered
     order_id int(10) NOT NULL,
     drink_id int(10),
     quantity int(10) NOT NULL,
-    unit_price decimal(15,2) NOT NULL,
 	PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (drink_id) REFERENCES drink_menu(id)
