@@ -55,7 +55,7 @@ const orm = {
             });
     },
 
-    pending: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableThreeI1, callback) {
+    pending: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
         const queryString = "SELECT ??.??, ??.id, as 'order id',\
      ??.??, ??.??, ??.??, ??.??, \
       FROM ??\
@@ -66,6 +66,27 @@ const orm = {
         connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableTwo,
             tableTwoI1, tableTwo, tableTwoI2, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo,
             tableTwoI3, tableOne, tableOne, tableOneI3, tableThree, tableThree, tableTwo],
+            function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                callback(result);
+            });
+    },
+
+    orderDetails: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableThreeI1, callback) {
+        const queryString = "SELECT ??.??, ??.id, as 'order id',\
+      ??.??, ??.??, ??.??, ??.??, ??.??,\
+      ??.??, ??.??, ??.?? ??.??\
+      FROM ??\
+      INNER JOIN ?? ON ??.?? = ??.id and ??.id = " + orderId +
+      "LEFT JOIN ?? ON ??.id = ??.item_id;";
+
+
+        connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableOne, tableOneI3, tableOne,
+            tableOneI4, tableOne, tableOneI5, tableOne, tableOneI6, tableTwo, tableTwoI1, tableTwo, tableTwoI2, tableTwo, 
+            tableTwoI3, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo, tableTwoI3, tableOne, tableOne, 
+            tableThree, tableThree, tableTwo],
             function (err, result) {
                 if (err) {
                     throw err;
