@@ -27,7 +27,7 @@ CREATE TABLE orders
 (
 	id int(10) NOT NULL AUTO_INCREMENT,
 	customer varchar(20) NOT NULL,
-    filled boolean NOT NULL default false,
+    order_status enum('pending', 'completed') NOT NULL default 'pending',
     price decimal(15,2) NOT NULL,
     sales_tax decimal(15,2) NOT NULL,
     total_price decimal(15,2) NOT NULL,

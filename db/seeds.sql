@@ -16,8 +16,7 @@ INSERT INTO items_ordered (order_id, item_id, description) VALUES ('1', '2', 'te
 INSERT INTO items_ordered (order_id, item_id, description) VALUES ('2', '3', 'test order');
 INSERT INTO items_ordered (order_id, item_id, description) VALUES ('3', '4', 'test order');
 
-INSERT INTO items_ordered (order_id, item_id) VALUES ('1', '6');
-INSERT INTO items_ordered (order_id, item_id) VALUES ('1', '6');
+INSERT INTO items_ordered (order_id, item_id, quantity) VALUES ('1', '6', '3');
 INSERT INTO items_ordered (order_id, item_id) VALUES ('2', '6');
 
 
