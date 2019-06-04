@@ -147,7 +147,7 @@ const orm = {
         queryString += " SET ";
         queryString += objToSql(objColVals);
         queryString += " WHERE ";
-        queryString += condition;
+        queryString += objToSql(condition);
 
         console.log(queryString);
         connection.query(queryString, function (err, result) {
