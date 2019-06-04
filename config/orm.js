@@ -74,7 +74,8 @@ const orm = {
             });
     },
 
-    orderDetails: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableThreeI1, callback) {
+    orderDetails: function (orderId, tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableOneI5, 
+        tableOneI6, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
         const queryString = "SELECT ??.??, ??.id, as 'order id',\
       ??.??, ??.??, ??.??, ??.??, ??.??,\
       ??.??, ??.??, ??.?? ??.??\
