@@ -38,7 +38,7 @@ CREATE TABLE orders
     price decimal(15,2) NOT NULL,
     sales_tax decimal(15,2) NOT NULL,
     total_price decimal(15,2) NOT NULL,
-    time_ordered datetime NOT NULL,
+    time_ordered datetime NOT NULL default NOW(),
 	PRIMARY KEY (id)
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE drinks_ordered
 	id int(10) NOT NULL AUTO_INCREMENT,
     order_id int(10) NOT NULL,
     drink_id int(10),
-    quantity int(10) NOT NULL,
+    quantity int(10) NOT NULL default '1',
 	PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (drink_id) REFERENCES drink_menu(id)
