@@ -95,19 +95,44 @@ const orm = {
                 callback(result);
             });
     },
-    create: function (table, cols, vals, callback) {
-        let queryString = "INSERT INTO " + table;
+    create: function (tableOne, tableTwo, OrderObj, ItemOrderedObj, callback) {
 
-        queryString += " (";
-        queryString += cols.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
+        tableOneCols = Object.keys(OrderObj);
+        tableTwoCols = Object.keys(ItemOrderedObj);
+        tableOneVals = Object.values(OrderObj);
+        tableTwoVals = Object.values(ItemOrderedObj);
 
-        console.log(queryString);
+        let tableOneQueryString = "INSERT INTO " + tableOne;
 
-        connection.query(queryString, vals, function (err, result) {
+        tableOneQueryString += " (";
+        tableOneQueryString += orderCols.toString();
+        tableOneQueryString += ") ";
+        tableOneQueryString += "VALUES (";
+        tableOneQueryString += printQuestionMarks(orderVals.length);
+        tableOneQueryString += ") ";
+
+        console.log(tableOneQueryString);
+
+        let tableTwoQueryString = "INSERT INTO " + tableTwo;
+
+        tableTwoQueryString += " (";
+        tableTwoQueryString += orderCols.toString();
+        tableTwoQueryString += ") ";
+        tableTwoQueryString += "VALUES (";
+        tableTwoQueryString += printQuestionMarks(orderVals.length);
+        tableTwoQueryString += ") ";
+
+        console.log(tableTwoQueryString);
+
+        connection.query(tableOneQueryString, tableOneVals, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            callback(result);
+        });
+
+        connection.query(tableTwoQueryString, tableTwoVals, function (err, result) {
             if (err) {
                 throw err;
             }
