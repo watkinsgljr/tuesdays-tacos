@@ -31,8 +31,8 @@ const ordersUtil = {
       callback(res);
     });
   },
-  delete: function(conditionOne, conditionTwo, callback) {
-    orm.delete("orders", "items_ordered", conditionOne, conditionTwo, function(res) {
+  delete: function(conditionOneKVP, conditionTwoKVP, callback) {
+    orm.delete("orders", "items_ordered", conditionOneKVP, conditionTwoKVP, function(res) {
       callback(res);
     });
   }
