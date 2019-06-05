@@ -19,6 +19,16 @@ router.get("/", function(req, res) {
   });
 });
 
+router.get("/pending", function(req, res) {
+    ordersUtil.pending(function(data) {
+      const pendingOrdersObject = {
+        orders: data
+      };
+      console.log(pendingOrdersObject);
+      res.render("index", pendingOrdersObject);
+    });
+  });
+
 router.post("/api/cats", function(req, res) {
   cat.create([
     "name", "sleepy"

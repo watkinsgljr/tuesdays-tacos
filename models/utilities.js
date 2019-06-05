@@ -4,7 +4,7 @@ const orm = require("../config/orm.js");
 
 const ordersUtil = {
   all: function(callback) {
-    orm.all("orders","items_ordered", "menu", "customer", "total_price", "description", "quantity", "order_id", "item", function(res) {
+    orm.all("orders", "items_ordered", "menu", "customer", "total_price", "description", "quantity", "order_id", "item", function(res) {
       callback(res);
     });
   },

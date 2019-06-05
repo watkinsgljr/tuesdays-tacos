@@ -43,6 +43,8 @@ const orm = {
       LEFT JOIN ?? ON ??.?? = ??.id\
       LEFT JOIN ?? ON ??.id = ??.item_id;";
 
+      console.log(queryString);
+
 
         connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableTwo,
             tableTwoI1, tableTwo, tableTwoI2, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo,
