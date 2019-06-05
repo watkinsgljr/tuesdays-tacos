@@ -26,13 +26,13 @@ const ordersUtil = {
       callback(res);
     });
   },
-  update: function({order_status: completed}, {order_id: orderId}, callback) {
-    orm.update("orders", {order_status: completed}, {order_id: orderId}, function(res) {
+  update: function(conditionOne, conditionTwo, callback) {
+    orm.update("orders", conditionOne, conditionTwo, function(res) {
       callback(res);
     });
   },
-  delete: function(condition, callback) {
-    orm.delete("cats", condition, function(res) {
+  delete: function(conditionOne, conditionTwo, callback) {
+    orm.delete("orders", "items_ordered", conditionOne, conditionTwo, function(res) {
       callback(res);
     });
   }

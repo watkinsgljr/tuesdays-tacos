@@ -158,12 +158,24 @@ const orm = {
             callback(result);
         });
     },
-    delete: function (table, condition, callback) {
-        let queryString = "DELETE FROM " + table;
-        queryString += " WHERE ";
-        queryString += condition;
+    delete: function (tableOne, tableTwo, conditionOne, conditionTwo, callback) {
+        let tableOneQueryString = "DELETE FROM " + tableOne;
+        tableOneQueryString += " WHERE ";
+        tableOneQueryString += conditionOne;
 
-        connection.query(queryString, function (err, result) {
+        connection.query(tableOneQueryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            callback(result);
+        });
+
+        let tableTwoQueryString = "DELETE FROM " + tableTwo;
+        tableTwoQueryString += " WHERE ";
+        tableTwoQueryString += conditionTwo;
+
+        connection.query(tableTwoQueryString, function (err, result) {
             if (err) {
                 throw err;
             }
