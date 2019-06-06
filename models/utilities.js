@@ -57,7 +57,11 @@ const ordersUtil = {
           order.price += parseFloat(dataArray[dataIndex].price);
           order.sales_tax += parseFloat(dataArray[dataIndex].sales_tax);
           order.sales_tax += parseFloat([dataIndex].sales_tax);
-          order.description.push(dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item);
+          const quantity = dataArray[dataIndex].quantity;
+          const item = dataArray[dataIndex].item;
+          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item};
+          order.description.push(itemDesc);
+          console.log(order.description);
           if (order.customer === null) {
             order.customer = dataArray[dataIndex].customer;
           }
