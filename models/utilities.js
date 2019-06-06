@@ -9,7 +9,7 @@ const ordersUtil = {
     });
   },
   pending: function(callback) {
-    orm.pending("orders","items_ordered", "menu", "customer", "total_price", "order_status", "description", "quantity", 
+    orm.pending("orders","items_ordered", "menu", "customer", "total_price", "order_status", "time_ordered", "description", "quantity", 
     "order_id", "item", function(res) {
       callback(res);
     });
