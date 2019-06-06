@@ -22,19 +22,23 @@ h1 {
     text-align: center;
 }
 
+ul {
+    padding-left: 0;
+}
+
 /* ---------------------------------------------- MAIN GRID CONTAINER ----------------------------------- */
 
 
 .grid-container {
     display: grid;
     width: 90%;
-    height: 90vh;
-    
-    grid-template-rows: 10% 35% 54%;
+    min-height: 90%;
+    /* grid-template-columns: 17rem 60rem; */
+    /* grid-template-rows: 10% 35% 54%; */
     margin: auto;
     margin-top: 3rem;
     margin-bottom: 3rem;
-   
+    padding: 1rem;
     background-color: #F5F5F5;
     z-index: 3;
     grid-column-gap: 1rem;
@@ -77,19 +81,31 @@ h1 {
   .menu {
     grid-column: 2 / span 1;
     grid-row: 2 / span 1;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     display: flex;
-    align-content: center;
+    align-items: center;
     overflow-x: auto;
     z-index: 2;
     padding-bottom: .5rem;
+    height: 14rem;
 
+  }
+
+  .order-form-wrapper {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+    overflow: hidden;
+    padding-top: 1rem;
+    margin: auto;
   }
 
   .order-form {
     grid-column: 2 / span 1;
     grid-row: 3 / span 1;
     overflow: hidden;
+    padding-top: 1rem;
+    margin: auto;
+    width:100%;
   }
 
   .card-wrapper {
@@ -99,6 +115,7 @@ h1 {
     overflow-y: scroll;
     padding-bottom: 1rem;
     height: 100%;
+    width: 20rem;
   }
 
   /* ---------------------------------------------- MENU CONTAINER ----------------------------------- */
@@ -175,8 +192,8 @@ h1 {
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 10% 35% 40% 15%;
+    /* grid-template-columns: 33% 33% 33%; */
+    /* grid-template-rows: 10% 35% 40% 15%; */
     margin: auto;
     margin-top: 1rem;
     background-color: #F5F5F5;
@@ -189,6 +206,7 @@ h1 {
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
     text-align: center;
+    height: 3rem;
 
   }
 
@@ -196,6 +214,7 @@ h1 {
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
     text-align: center;
+    height: 3rem;
 
   }
 
@@ -203,12 +222,16 @@ h1 {
     grid-column: 3 / span 3;
     grid-row: 1 / span 1;
     text-align: center;
+    height: 3rem;
 
   }
 
   .shell-inputs {
     grid-column: 1 / span 1;
     grid-row: 2 / span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
   }
 
@@ -221,12 +244,16 @@ h1 {
   .other-inputs {
     grid-column: 3 / span 1;
     grid-row: 2 / span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
   }
 
   .special-instructions {
     grid-column: 1 / span 3;
     grid-row: 3 / span 1;
+    padding-top: 1rem;
 
   }
 
@@ -241,6 +268,7 @@ h1 {
       margin-bottom: 1rem;
       width: 1rem;
 }
+
 
 .order-btn-wrapper {
     grid-column: 1 / span 3;
@@ -318,18 +346,18 @@ label {
     background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
 
-.card::-webkit-scrollbar {
+.card-wrapper::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;
 }
  
-.card::-webkit-scrollbar-track {
+.card-wrapper::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #F5F5F5;
     border-radius: 10px;
 }
  
-.card::-webkit-scrollbar-thumb {
+.card-wrapper::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-image: -webkit-linear-gradient(330deg, #f6d365 0%, #fda085 100%);
@@ -342,7 +370,7 @@ label {
 /* ---------------------------------------------- PENDING CARDS ----------------------------------- */
 
 .card {
-    width: 90%;
+    min-width: 18rem;
     min-height: 60%;  
     margin-top: 1rem;
     font-size: .75rem;
@@ -351,6 +379,8 @@ label {
 }
 
 .card-body2 {
+
+    width: 100%;
   
 }
 
@@ -362,5 +392,15 @@ h6 {
     font-size: .75rem;
     font-weight: bold;
 }
+
+.shell-inputs .other-inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.order-form {
+    box-shadow: 10px 10px 5px grey;
+  }
 
 

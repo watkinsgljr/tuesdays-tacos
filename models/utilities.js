@@ -3,6 +3,7 @@
 const orm = require("../config/orm.js");
 const Order = require("./order");
 const ItemOrdered = require("./itemOrdered");
+var moment = require("moment");
 
 const ordersUtil = {
   all: function (callback) {
@@ -66,7 +67,7 @@ const ordersUtil = {
             order.customer = dataArray[dataIndex].customer;
           }
           if (order.time_ordered === null) {
-            order.time_ordered = dataArray[dataIndex].time_ordered;
+            order.time_ordered = ordersUtil.convertTime(dataArray[dataIndex].time_ordered);
           }
 
         }
@@ -74,6 +75,10 @@ const ordersUtil = {
     } 
     console.log(orderArray);
     return (orderArray);
+  },
+  convertTime: function(mySQLTime) {
+    time = moment("'" + mySQLTime + "'").calendar();
+    return time;
   }
 };
 
