@@ -18,7 +18,7 @@ const ordersUtil = {
       });
   },
   searchByItem: function (userChoice, callback) {
-    orm.pending("menu", "item", userChoice, function (res) {
+    orm.pending("menu", "id", userChoice, function (res) {
         callback(res);
       });
   },
