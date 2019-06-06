@@ -1,6 +1,8 @@
 
 // Import the ORM to create functions that will interact with the database.
 const orm = require("../config/orm.js");
+const Order = require("./order");
+const ItemOrdered = require("./itemOrdered");
 
 const ordersUtil = {
   all: function (callback) {
@@ -36,15 +38,38 @@ const ordersUtil = {
       callback(res);
     });
   },
-  getUniqueIds: function(array) {
+  getUniqueIds: function (array) {
     const uniqueIds = [];
     for (i = 0; i < array.length; i++) {
-        if (uniqueIds.indexOf(array[i].order_id) === -1) {
-            uniqueIds.push(array[i].order_id);
-            
-        }
+      if (uniqueIds.indexOf(array[i].order_id) === -1) {
+        uniqueIds.push(array[i].order_id);
+
+      }
     } return uniqueIds;
-}
+  },
+  groupOrders: function (uniqueIdsArray, dataArray) {
+    const orderArray = [];
+    for (idIndex = 0; idIndex < uniqueIdsArray; idIndex++) {
+      const order = new Order(uniqueIdsArray[idIndex]);
+      for (dataIndex = 0; dataIndex < dataArray.length; dataIndex++) {
+        if (dataArray[dataIndex].order_id === order.id) {
+          order.price += dataArray[dataIndex].price;
+          order.sales_tax += dataArray[dataIndex].sales_tax;
+          order.sales_tax += dataArray[dataIndex].sales_tax;
+          order.description.push(dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item);
+          if (order.customer === null) {
+            order.customer = dataArray[dataIndex].customer;
+          }
+          if (order.time_ordered === null) {
+            order.time_ordered = dataArray[dataIndex].time_ordered;
+          }
+
+        }
+      } orderArray.push(order);
+    } 
+    console.log(orderArray);
+    return (orderArray);
+  }
 };
 
 // Export the database functions for the controller (catsController.js).

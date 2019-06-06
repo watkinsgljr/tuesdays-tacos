@@ -6,3 +6,6 @@ function ItemOrdered(orderObj) {
     this.quantity = orderObj.quantity;
     this.description = orderObj.description.toString();
   }
+
+
+  module.exports = ItemOrdered();

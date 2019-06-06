@@ -1,9 +1,15 @@
 
 
-function Order(orderObj) {
-    this.customer = orderObj.customer;
-    this.filled = false;
-    this.price;
-    this.sales_tax;
-    this.total_price;
-  }
+function Order(id) {
+    this.id = id;
+    this.customer;
+    this.orderStatus = "pending";
+    this.price = 0;
+    this.sales_tax = 0;
+    this.total_price = 0;
+    this.time_ordered;
+    this.description = [];
+  };
+
+
+  module.exports = Order();
