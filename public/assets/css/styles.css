@@ -133,35 +133,35 @@ h1 {
 
 .beef {
 
-    background: url("../images/beef-taco.jpg") no-repeat center;
+    background: url("../img/beef-taco.jpg") no-repeat center;
     background-size: cover;
 
 }
 
 .chicken {
 
-    background: url("../images/chicken-taco.jpg") no-repeat center;
+    background: url("../img/chicken-taco.jpg") no-repeat center;
     background-size: cover;
 
 }
 
 .veggie {
 
-    background: url("../images/veggie-taco.jpg") no-repeat center;
+    background: url("../img/veggie-taco.jpg") no-repeat center;
     background-size: cover;
 
 }
 
 .vegan {
 
-    background: url("../images/vegan-taco.jpg") no-repeat center;
+    background: url("../img/vegan-taco.jpg") no-repeat center;
     background-size: cover;
 
 }
 
 .drink {
 
-    background: url("../images/drink.jpg") no-repeat center;
+    background: url("../img/drink.jpg") no-repeat center;
     background-size: cover;
 
 }
