@@ -49,13 +49,14 @@ const ordersUtil = {
   },
   groupOrders: function (uniqueIdsArray, dataArray) {
     const orderArray = [];
-    for (idIndex = 0; idIndex < uniqueIdsArray; idIndex++) {
+    for (idIndex = 0; idIndex < uniqueIdsArray.length; idIndex++) {
       const order = new Order(uniqueIdsArray[idIndex]);
+      console.log(order);
       for (dataIndex = 0; dataIndex < dataArray.length; dataIndex++) {
         if (dataArray[dataIndex].order_id === order.id) {
-          order.price += dataArray[dataIndex].price;
-          order.sales_tax += dataArray[dataIndex].sales_tax;
-          order.sales_tax += dataArray[dataIndex].sales_tax;
+          order.price += parseFloat(dataArray[dataIndex].price);
+          order.sales_tax += parseFloat(dataArray[dataIndex].sales_tax);
+          order.sales_tax += parseFloat([dataIndex].sales_tax);
           order.description.push(dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item);
           if (order.customer === null) {
             order.customer = dataArray[dataIndex].customer;
