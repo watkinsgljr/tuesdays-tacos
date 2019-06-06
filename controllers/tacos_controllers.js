@@ -22,9 +22,14 @@ router.get("/", function(req, res) {
 router.get("/pending", function(req, res) {
     ordersUtil.pending(function(data) {
       const pendingOrdersObject = {
-        pendingOrders: data
+        pendingOrders: data,
       };
-      console.log(pendingOrdersObject);
+
+      console.log(pendingOrdersObject.pendingOrders[2]);
+      console.log(ordersUtil.getUniqueIds(pendingOrdersObject.pendingOrders));
+
+
+      
       res.render("index", pendingOrdersObject);
     });
   });

@@ -181,6 +181,14 @@ const orm = {
 
             callback(result);
         });
+    },
+    getUniqueIds: function(array) {
+        const uniqueIds = [];
+        for (i = 0; i < array.length; i++) {
+            if (uniqueIds.indexOf(array[i].order_id) === -1) {
+                uniqueIds.push(array[i].order_id);
+            }
+        } return uniqueIds;
     }
 };
 
