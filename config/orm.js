@@ -72,6 +72,18 @@ const orm = {
                 callback(result);
             });
     },
+    searchByItem: function (tableThree, tableThreeI1, userChoice, callback) {
+        const queryString = "SELECT * from ?? WHERE ?? = ??"
+
+
+        connection.query(queryString, [tableThree, tableThreeI1, userChoice],
+            function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                callback(result);
+            });
+    },
 
     orderDetails: function (orderId, tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableOneI5, 
         tableOneI6, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {

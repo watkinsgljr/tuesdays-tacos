@@ -17,6 +17,11 @@ const ordersUtil = {
         callback(res);
       });
   },
+  searchByItem: function (userChoice, callback) {
+    orm.pending("menu", "item", userChoice, function (res) {
+        callback(res);
+      });
+  },
   orderDetails: function (callback) {
     orm.all(order.id, "orders", "items_ordered", "menu", "customer", "order_status", "price", "sales_tax",
       "total_price", "time_ordered", "description", "quantity", "order_id", "item", function (res) {
