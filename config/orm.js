@@ -37,11 +37,7 @@ function objToSql(ob) {
 // Object for all our SQL statement functions.
 const orm = {
     all: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
-        const queryString = "SELECT ??.??, ??.id, as 'order id',\
-     ??.??, ??.??, ??.??, ??.??, \
-      FROM ??\
-      LEFT JOIN ?? ON ??.?? = ??.id\
-      LEFT JOIN ?? ON ??.id = ??.item_id;";
+        const queryString = 'SELECT ??.??, ??.id as order_id, ??.??, ??.??, ??.??, ??.?? FROM ??  LEFT JOIN ?? ON ??.?? = ??.id LEFT JOIN ?? ON ??.id = ??.item_id;';
 
       console.log(queryString);
 
@@ -50,6 +46,7 @@ const orm = {
             tableTwoI1, tableTwo, tableTwoI2, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo,
             tableTwoI3, tableOne, tableThree, tableThree, tableTwo],
             function (err, result) {
+                console.log(queryString);
                 if (err) {
                     throw err;
                 }
@@ -58,8 +55,8 @@ const orm = {
     },
 
     pending: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
-        const queryString = "SELECT ??.??, ??.id, as 'order id',\
-     ??.??, ??.??, ??.??, ??.??, \
+        const queryString = "SELECT ??.??, ??.id as 'order id',\
+     ??.??, ??.??, ??.??, ??.?? \
       FROM ??\
       LEFT JOIN ?? ON ??.?? = ??.id and ??.?? = 'pending'\
       LEFT JOIN ?? ON ??.id = ??.item_id;";
@@ -78,7 +75,7 @@ const orm = {
 
     orderDetails: function (orderId, tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableOneI5, 
         tableOneI6, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
-        const queryString = "SELECT ??.??, ??.id, as 'order id',\
+        const queryString = "SELECT ??.??, ??.id as 'order id',\
       ??.??, ??.??, ??.??, ??.??, ??.??,\
       ??.??, ??.??, ??.?? ??.??\
       FROM ??\
