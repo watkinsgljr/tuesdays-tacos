@@ -10,18 +10,19 @@ $(".item2").on("click", function (event) {
 
     $.ajax("/menu/" + id, {
         type: "GET",
-      }).then(
-        function(itemObj) {
-          console.log(itemObj);
-          const selection = itemObj.item.replace("_", " ");
-          console.log(selection);
-          $(".user-selected").text(selection);
+    }).then(
+        function (response) {
+            console.log("test");
+            console.log(response);
+            //   const selection = itemObj.item.replace("_", " ");
+            //   console.log(selection);
+            //   $(".user-selected").text(selection);
 
 
-          // Reload the page to get the updated list
-        //   location.reload();
+            // Reload the page to get the updated list
+            //   location.reload();
         }
-      );
+    );
 
 });
 
