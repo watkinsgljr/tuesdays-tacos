@@ -65,7 +65,7 @@ const ordersUtil = {
           order.sales_tax += parseFloat([dataIndex].sales_tax);
           const quantity = dataArray[dataIndex].quantity;
           const item = dataArray[dataIndex].item;
-          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item};
+          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item.replace("_", " ")};
           order.description.push(itemDesc);
           console.log(order.description);
           if (order.customer === null) {

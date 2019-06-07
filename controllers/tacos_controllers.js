@@ -47,6 +47,20 @@ router.get("/pending", function(req, res) {
       res.render("index", ordersObject);
     });
   });
+  router.get("/menu/:id", function(req, res) {
+    const condition = "id = " + req.params.id;
+  
+    console.log(condition);
+  
+    ordersUtil.searchByItem(condition, function(data) {
+
+      const itemObj = {
+        item: data,
+      }
+      console.log(itemObj.item[0]);
+      res.json(itemObj);
+    });
+  });
 
 router.post("/api/cats", function(req, res) {
   cat.create([
@@ -58,15 +72,7 @@ router.post("/api/cats", function(req, res) {
     res.json({ id: result.insertId });
   });
 });
-router.get("/menu/:id", function(req, res) {
-  const condition = "id = " + req.params.id;
 
-  console.log(condition);
-
-  ordersUtil.searchByItem(condition, function(result) {
-    console.log(result);
-  });
-});
 router.put("/api/cats/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
