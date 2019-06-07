@@ -36,14 +36,14 @@ function objToSql(ob) {
 
 // Object for all our SQL statement functions.
 const orm = {
-    all: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
-        const queryString = 'SELECT ??.??, ??.id as order_id, ??.??, ??.??, ??.??, ??.?? FROM ??  LEFT JOIN ?? ON ??.?? = ??.id LEFT JOIN ?? ON ??.id = ??.item_id;';
+    all: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
+        const queryString = 'SELECT ??.??, ??.id as order_id, ??.??, ??.??, ??.??, ??.??, ??.?? FROM ??  LEFT JOIN ?? ON ??.?? = ??.id LEFT JOIN ?? ON ??.id = ??.item_id;';
 
       console.log(queryString);
 
 
         connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableTwo,
-            tableTwoI1, tableTwo, tableTwoI2, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo,
+            tableTwoI1, tableTwo, tableTwoI2, tableThree, tableThreeI1, tableOne, tableOneI3, tableOne, tableTwo, tableTwo,
             tableTwoI3, tableOne, tableThree, tableThree, tableTwo],
             function (err, result) {
                 console.log(queryString);

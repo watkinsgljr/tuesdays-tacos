@@ -4,9 +4,14 @@
   <div class="background-pic"></div>
 
   <div class="grid-container">
-    <div class="pending-title">
-      <h4>Pending Orders</h4>
-    </div>
+
+        {{#if pending}}
+          {{> pendingOrdersCards/pendingOrdersHead}}
+        {{/if}}
+
+        {{#unless pending}}
+          {{> allOrdersCards/allOrdersHead}}
+        {{/unless}}
     <div class="customer item">
 
       <!-- Small input -->
@@ -18,17 +23,24 @@
 
       <div class="card-wrapper">
 
-
-        {{#each pendingOrders}}
-
+        {{#if pending}}
+        {{#each orders}}  
         <ul>
-
           {{> pendingOrdersCards/pendingOrdersCards}}
-
-
         </ul>
-
         {{/each}}
+        {{/if}}
+
+        {{#unless pending}}
+        {{#each orders}}
+        <ul>
+          {{> allOrdersCards/allOrdersCards}}
+        </ul>
+        {{/each}}
+        {{/unless}}
+        
+
+
 
 
 
@@ -111,7 +123,7 @@
 
 
     </div>
-    
+
     <div class="order-form-wrapper item">
 
       <div class="order-form">

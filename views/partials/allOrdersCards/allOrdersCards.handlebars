@@ -1,0 +1,17 @@
+
+
+<div class="card" style="padding-top: .5rem !important">
+    <div class="card-body2" style="padding: .5rem !important">
+        <h6 class="order-number">{{id}}<span class="time-ordered">{{time_ordered}}</span></h6>
+        <h6 class="card-subtitle mb-2 text-muted customer-name">{{customer}}</h6>
+        
+        {{#each description}}
+
+        {{> orderDescription/orderDescription}}
+
+        {{/each}}
+
+        <a href="#" class="card-link">Completed</a>
+        <a href="#" class="card-link">Delete</a>
+    </div>
+</div>

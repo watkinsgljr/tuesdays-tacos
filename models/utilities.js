@@ -7,7 +7,7 @@ var moment = require("moment");
 
 const ordersUtil = {
   all: function (callback) {
-    orm.all("orders", "items_ordered", "menu", "customer", "total_price", "description", "quantity", "order_id", "item", function (res) {
+    orm.all("orders", "items_ordered", "menu", "customer", "total_price", "order_status", "description", "quantity", "order_id", "item", function (res) {
       callback(res);
     });
   },

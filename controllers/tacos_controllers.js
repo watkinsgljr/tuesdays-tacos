@@ -12,11 +12,20 @@ const ordersUtil = require("../models/utilities.js");
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
   ordersUtil.all(function(data) {
-    const allOrdersObject = {
-      orders: data
+    const uniqueIds = ordersUtil.getUniqueIds(data);
+    data = ordersUtil.groupOrders(uniqueIds, data);
+    console.log(uniqueIds);
+    console.log(data);
+    const ordersObject = {
+      orders: data,
+      pending: false,
     };
-    console.log(allOrdersObject);
-    res.render("index", allOrdersObject);
+
+    
+    console.log(uniqueIds);
+    console.log(ordersObject.orders);
+
+    res.render("index", ordersObject);
   });
 });
 
@@ -26,15 +35,16 @@ router.get("/pending", function(req, res) {
       data = ordersUtil.groupOrders(uniqueIds, data);
       console.log(uniqueIds);
       console.log(data);
-      const pendingOrdersObject = {
-        pendingOrders: data,
+      const ordersObject = {
+        orders: data,
+        pending: true,
       };
 
       
       console.log(uniqueIds);
-      console.log(pendingOrdersObject.pendingOrders);
+      console.log(ordersObject.orders);
 
-      res.render("index", pendingOrdersObject);
+      res.render("index", ordersObject);
     });
   });
 
