@@ -58,7 +58,15 @@ router.post("/api/cats", function(req, res) {
     res.json({ id: result.insertId });
   });
 });
+router.get("/menu/:id", function(req, res) {
+  const condition = "id = " + req.params.id;
 
+  console.log(condition);
+
+  ordersUtil.searchByItem(condition, function(result) {
+    console.log(result);
+  });
+});
 router.put("/api/cats/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 

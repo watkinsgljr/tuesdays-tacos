@@ -7,7 +7,7 @@ var moment = require("moment");
 
 const ordersUtil = {
   all: function (callback) {
-    orm.all("orders", "items_ordered", "menu", "customer", "total_price", "order_status", "description", "quantity", "order_id", "item", function (res) {
+    orm.all("orders", "items_ordered", "menu", "customer", "total_price", "order_status", "time_ordered", "description", "quantity", "order_id", "item", function (res) {
       callback(res);
     });
   },
@@ -17,8 +17,8 @@ const ordersUtil = {
         callback(res);
       });
   },
-  searchByItem: function (userChoice, callback) {
-    orm.searchByItem("menu", "id", userChoice, function (res) {
+  searchByItem: function (condition, callback) {
+    orm.searchByItem("menu", condition, function (res) {
         callback(res);
       });
   },
