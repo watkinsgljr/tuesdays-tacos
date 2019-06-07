@@ -11,9 +11,9 @@ $(".item2").on("click", function (event) {
     $.ajax("/menu/" + id, {
         type: "GET",
     }).then(
-        function (response) {
+        function (res) {
             console.log("test");
-            console.log(response);
+            console.log(res);
             //   const selection = itemObj.item.replace("_", " ");
             //   console.log(selection);
             //   $(".user-selected").text(selection);

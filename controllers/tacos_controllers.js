@@ -58,7 +58,7 @@ router.get("/pending", function(req, res) {
         item: data,
       }
       console.log(data);
-      res.send("test");
+      res.send(itemObj.item[0]);
     });
   });
 
