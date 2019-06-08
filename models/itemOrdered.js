@@ -1,11 +1,12 @@
 
 
-// function ItemOrdered(orderObj) {
-//     this.order_id;
-//     this.item_id = orderObj.item_id;
-//     this.quantity = orderObj.quantity;
-//     this.description = orderObj.description.toString();
-//   }
+function ItemOrdered(menuItemObj) {
+    this.order_id;
+    this.item_id = menuItemObj.id;
+    this.quantity = menuItemObj.quantity;
+    this.description;
+
+  }
 
 
-//   module.exports = ItemOrdered();
+  module.exports = ItemOrdered;

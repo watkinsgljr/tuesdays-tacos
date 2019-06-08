@@ -1,23 +1,23 @@
 
 
-function Order(orderObjOrId) {
+function Order(menuItemObjOrId) {
 
-  if (typeof orderObjOrId === "object") {
+  if (typeof menuItemObjOrId === "object") {
 
     this.id;
-    this.customer = orderObjOrId.customer;
+    this.customer = menuItemObjOrId.customer;
     this.orderStatus = "pending";
-    this.price = orderObjOrId.price;
-    this.sales_tax = orderObjOrId.sales_tax;
-    this.total_price = orderObjOrId.total_price;
+    this.price = menuItemObjOrId.price;
+    this.sales_tax = menuItemObjOrId.sales_tax;
+    this.total_price = menuItemObjOrId.total_price;
     this.time_ordered;
-    this.description = orderObjOrId.description;
+    this.description = menuItemObjOrId.description;
 
 
   } else {
 
 
-    this.id = orderObjOrId;
+    this.id = menuItemObjOrId;
     this.customer = null;
     this.orderStatus = "pending";
     this.price = 0;

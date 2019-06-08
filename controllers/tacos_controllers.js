@@ -3,7 +3,7 @@ const express = require("express");
 
 const router = express.Router();
 
-// Import the model (cat.js) to use its database functions.
+
 const itemOrdered = require("../models/itemOrdered.js");
 const order = require("../models/order.js");
 const ordersUtil = require("../models/utilities.js");
@@ -54,11 +54,10 @@ router.get("/pending", function(req, res) {
   
     ordersUtil.searchByItem(condition, function(data) {
 
-      const itemObj = {
-        item: data,
-      }
-      console.log(data[0]);
-      res.send(itemObj.item[0]);
+      const orderDataObj = ordersUtil.initOrder(data[0]); 
+
+      console.log(orderDataObj);
+      res.send(orderDataObj);
     });
   });
 

@@ -84,6 +84,12 @@ const ordersUtil = {
   convertTime: function(mySQLTime) {
     time = moment("'" + mySQLTime + "'").calendar();
     return time;
+  },
+  initOrder: function(menuItemObj) {
+    const order = new Order(menuItemObj);
+    const itemOrdered = new ItemOrdered(menuItemObj);
+    return {order: order, itemOrdered: itemOrdered, menuItem: menuItemObj};
+
   }
 };
 
