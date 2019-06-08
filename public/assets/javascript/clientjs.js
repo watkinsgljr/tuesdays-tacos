@@ -30,6 +30,11 @@ $(".item2").on("click", function (event) {
             console.log(response);
 
             currentItem = response.menuItem;
+            console.log("------CURRENT ITEM------");
+            console.log(currentItem);
+            $().button('toggle')
+            const radioSelections = $('.lettuce').data("lettuce")
+            console.log(radioSelections);
 
             $(".user-selected").text(response.menuItem.item.replace("_", " "));
         }
