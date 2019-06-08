@@ -61,8 +61,8 @@ router.get("/pending", function(req, res) {
     });
   });
 
-router.post("/api/cats", function(req, res) {
-  cat.create([
+router.post("/new-order", function(req, res) {
+  ordersUtil.create([
     "name", "sleepy"
   ], [
     req.body.name, req.body.sleepy
@@ -72,12 +72,28 @@ router.post("/api/cats", function(req, res) {
   });
 });
 
-router.put("/api/cats/:id", function(req, res) {
+router.put("/edit-order/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
   console.log("condition", condition);
 
-  cat.update({
+  ordersUtil.update({
+    sleepy: req.body.sleepy
+  }, condition, function(result) {
+    if (result.changedRows == 0) {
+      // If no rows were changed, then the ID must not exist, so 404
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
+router.put("/change-status/:id", function(req, res) {
+  const condition = "id = " + req.params.id;
+
+  console.log("condition", condition);
+
+  ordersUtil.update({
     sleepy: req.body.sleepy
   }, condition, function(result) {
     if (result.changedRows == 0) {
@@ -92,7 +108,7 @@ router.put("/api/cats/:id", function(req, res) {
 router.delete("/api/cats/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
-  cat.delete(condition, function(result) {
+  ordersUtil.delete(condition, function(result) {
     if (result.affectedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
