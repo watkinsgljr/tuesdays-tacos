@@ -42,9 +42,14 @@ $(".item2").on("click", function (event) {
             currentItem = response.menuItem;
             console.log("------CURRENT ITEM------");
             console.log(currentItem);
-            const currentItemCustomization = new ItemCustomization();
-            const radioSelections = $('.lettuce').data("lettuce")
-            console.log(radioSelections);
+            const currentItemCustomization = new ItemCustomization(currentItem);
+            custKeys = Object.keys(currentItemCustomization);
+            for (i = 0; i < custKeys.length; i++) {
+                $("." + custKeys[i]).data(custKeys[i], currentItemCustomization[custKeys[i]]);
+                console.log($(".lettuce").data("lettuce"));
+                const radioSelections = $('.lettuce').data("lettuce");
+                console.log(radioSelections);
+            };
 
             $(".user-selected").text(response.menuItem.item.replace("_", " "));
         }
@@ -60,26 +65,26 @@ $(".item2").on("click", function (event) {
 
 
 
-function makeButtonActive(element) {
-    elemet1.addClass("focus active");
-    element2.removeClass("focus active");
-    element3.removeClass("focus active");
-    element.removeClass("focus active");
-};
+// function makeButtonActive(element) {
+//     elemet1.addClass("focus active");
+//     element2.removeClass("focus active");
+//     element3.removeClass("focus active");
+//     element.removeClass("focus active");
+// };
 
 
-function switchSelection(selection) {
-    elemement.data(selection)
+// function switchSelection(selection) {
+//     elemement.data(selection)
 
-};
+// };
 
-$(".lettuce").data("lettuce")
-$(".tomatoes").data("lettuce"
-$(".onion").data("lettuce"
-$(".cheese").data("lettuce"
-$(".sauce").data("lettuce"
-$(".shell").data("lettuce"
-$(".shell_type").data("lettuce"
+// $(".lettuce").data("lettuce")
+// $(".tomatoes").data("lettuce"
+// $(".onion").data("lettuce"
+// $(".cheese").data("lettuce"
+// $(".sauce").data("lettuce"
+// $(".shell").data("lettuce"
+// $(".shell_type").data("lettuce"
 
 
 
