@@ -1,4 +1,11 @@
 
+currentOrder = null;
+
+currentItem = null;
+
+itemCart = [];
+
+console.log(currentOrder);
 
 
 
@@ -16,12 +23,15 @@ $(".item2").on("click", function (event) {
 
 
     $.ajax("/menu/" + id, {
-        type: "GET",
+        type: "GET"
     }).then(
         function (response) {
 
             console.log(response);
 
+            currentItem = response.menuItem;
+
+            $(".user-selected").text(response.menuItem.item.replace("_", " "));
         }
     );
 

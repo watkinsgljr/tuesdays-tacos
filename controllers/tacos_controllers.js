@@ -105,7 +105,7 @@ router.put("/change-status/:id", function(req, res) {
   });
 });
 
-router.delete("/api/cats/:id", function(req, res) {
+router.delete("/delete-order/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
   ordersUtil.delete(condition, function(result) {
