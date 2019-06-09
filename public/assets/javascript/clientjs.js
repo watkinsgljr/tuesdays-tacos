@@ -56,16 +56,13 @@ $(".item2").on("click", function (event) {
             console.log(currentItem);
             currentItemCustomization = new ItemCustomization(currentItem);
             console.log(currentItemCustomization);
-            condiments = Object.keys(currentItemCustomization);
-            $(".tomatoes .selection-btn .xtra").trigger("click");
-            for (i = 0; i < condiments.length; i++) {
-                const key = condiments[i];
-                const value = currentItemCustomization[condiments[i]];
-
-                $("." + condiments[i]).data(condiments[i], currentItemCustomization[condiments[i]]);
-                console.log($("." + condiments[i]).data(condiments[i]));
-                // const radioSelections = $('.lettuce').data("lettuce");
-                // console.log(radioSelections);
+            toppings = Object.keys(currentItemCustomization);
+            for (i = 0; i < toppings.length; i++) {
+                const topping = toppings[i];
+                const amount = currentItemCustomization[toppings[i]];
+                $("." + toppings[i]).data(topping, amount);
+                $("." + topping + " .selection-btn ." + amount).trigger("click");
+                console.log($("." + toppings[i]).data(toppings[i]));
             };
 
             $(".user-selected").text(response.menuItem.item.replace("_", " "));
@@ -74,8 +71,20 @@ $(".item2").on("click", function (event) {
 
 });
 
-$(".item2").on("click", function (event) {
+$(".selection-btn").on("click", function (event) {
     event.preventDefault();
+
+    console.log($(this));
+
+    if (currentItemCustomization != undefined) {
+        const amount = $(this)[0].outerText.toLowerCase();
+        const topping = $(this)[0].childNodes[1].name;
+        currentItemCustomization[topping] = amount;
+
+        console.log(currentItemCustomization);
+    }
+    
+
 
 
 });
