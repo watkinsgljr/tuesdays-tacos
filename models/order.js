@@ -25,6 +25,7 @@ function Order(menuItemObjOrId) {
     this.total_price = 0;
     this.time_ordered = null;
     this.description = [];
+    
   };
 
 }

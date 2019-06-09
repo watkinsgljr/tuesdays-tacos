@@ -1,11 +1,23 @@
 
-currentOrder = null;
+let currentOrder;
 
-currentItem = null;
+let currentItem;
 
-itemCart = [];
+const itemCart = [];
+
+let currentItemCustomization;
 
 console.log(currentOrder);
+
+// $(".tomatoes .selection-btn .xtra").trigger("click");
+
+$('input[name=shell][id="soft"]').attr('checked', true);
+
+console.log("should say reg above");
+
+console.log($(".tomatoes"));
+
+console.log("should say reg above");
 
 function ItemCustomization(currentItemObj) {
     this.lettuce = currentItemObj.lettuce;
@@ -42,13 +54,18 @@ $(".item2").on("click", function (event) {
             currentItem = response.menuItem;
             console.log("------CURRENT ITEM------");
             console.log(currentItem);
-            const currentItemCustomization = new ItemCustomization(currentItem);
-            custKeys = Object.keys(currentItemCustomization);
-            for (i = 0; i < custKeys.length; i++) {
-                $("." + custKeys[i]).data(custKeys[i], currentItemCustomization[custKeys[i]]);
-                console.log($(".lettuce").data("lettuce"));
-                const radioSelections = $('.lettuce').data("lettuce");
-                console.log(radioSelections);
+            currentItemCustomization = new ItemCustomization(currentItem);
+            console.log(currentItemCustomization);
+            condiments = Object.keys(currentItemCustomization);
+            $(".tomatoes .selection-btn .xtra").trigger("click");
+            for (i = 0; i < condiments.length; i++) {
+                const key = condiments[i];
+                const value = currentItemCustomization[condiments[i]];
+
+                $("." + condiments[i]).data(condiments[i], currentItemCustomization[condiments[i]]);
+                console.log($("." + condiments[i]).data(condiments[i]));
+                // const radioSelections = $('.lettuce').data("lettuce");
+                // console.log(radioSelections);
             };
 
             $(".user-selected").text(response.menuItem.item.replace("_", " "));
