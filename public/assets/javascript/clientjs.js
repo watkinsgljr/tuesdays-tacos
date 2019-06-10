@@ -27,6 +27,13 @@ function Order() {
     this.total_price;
 }
 
+function ItemOrdered(quantity = 1) {
+    this.order_id;
+    this.item_id;
+    this.quantity = quantity;
+    this.description = "Order details: ";
+}
+
 
 
 
@@ -84,11 +91,11 @@ $(".selection-btn").on("click", function (event) {
 
 $(".add-item-to-order").on("click", function () {
 
-    itemCart.push(currentItem);
+    
     
     if (currentOrder === undefined) {
         currentOrder = new Order();
-        currentOrder.customer = $(".customer-name-field");
+        currentOrder.customer = $(".customer-name-field").val();
         currentOrder.price = parseFloat(currentItem.price.toFixed(2));
         currentOrder.sales_tax = parseFloat((currentOrder.price * .07).toFixed(2));
         currentOrder.total_price = currentOrder.price + currentOrder.sales_tax;
@@ -98,14 +105,75 @@ $(".add-item-to-order").on("click", function () {
     } else {
         currentOrder.price += parseFloat(currentItem.price).toFixed(2);
         currentOrder.sales_tax = parseFloat((currentItem.price * .07).toFixed(2));
-        currentOrder.total_price = parseFloat((currentOrder.price + currentOrder.sales_tax).toFixed(2));
+        currentOrder.total_price = currentOrder.price + currentOrder.sales_tax;
         console.log(currentOrder);
     }
+
+    itemOrdered = new ItemOrdered();
+    itemOrdered.item_id = currentItem.id;
+
+    toppings = Object.keys(currentItemCustomization);
+    amount = Object.values(currentItemCustomization);
+    const itemDescription = [];
+
+    for (i = 0; i < toppings.length; i++) {
+        if (amount[i] != "reg" && amount[i] != "none") {
+            let description = amount[i] + " " + toppings[i];
+            itemDescription.push(description);
+        } else if (amount[i] === "none") {
+            let description = "no " + toppings[i];
+            itemDescription.push(description);
+        }
+
+        itemOrdered.description = currentItem.item.replace("_", " ") + ": " + itemDescription.toString().replace("_", " ");
+        itemOrdered.description.replace(",", ", ");
+        itemOrdered.description.charAt(0).toUpperCase();
+    }
+
+    console.log(itemOrdered);
+    itemCart.push(itemOrdered);
     
 
     currentItem = null;
     $(".selection-btn").removeClass("active");
     console.log("Order Added");
+
+});
+
+$(".submit-order").on("click", function () {
+
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+
+        const orderData = {
+          order: currentOrder,
+          itemCart: itemCart
+        };
+        console.log("--------ORDER DATA------------");
+
+        console.log(orderData);
+    
+        // Send the POST request.
+        $.ajax("/new-order", {
+          type: "POST",
+          data: orderData
+        }).then(function(response){
+
+            console.log(response);
+            console.log("==================part two of query=================");
+            orderData.order.id = response.id;
+
+            $.ajax("/new-item-ordered", {
+                type: "POST",
+                data: orderData
+              })
+        }).then(
+          function() {
+            console.log("Order Submitted");
+            // Reload the page to get the updated list
+            location.reload();
+          }
+        );
 
 });
 

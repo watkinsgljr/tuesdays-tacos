@@ -28,12 +28,23 @@ const ordersUtil = {
         callback(res);
       });
   },
+  getLastOrder: function(callback) {
+    orm.getMax("orders", "id", function(res) {
+      callback(res);
+    })
+  },
   // The variables cols and vals are arrays.
-  create: function (OrderObj, ItemOrderedObj, callback) {
-    orm.create("orders", "items_ordered", OrderObj, ItemOrderedObj, function (res) {
+  createOrder: function (OrderObj, callback) {
+    orm.createOrder("orders", OrderObj, function (res) {
       callback(res);
     });
   },
+  createItemsOrdered: function (itemsOrderedArray, orderId, callback) {
+    orm.createItemsOrdered("items_ordered", itemsOrderedArray, orderId, function (res) {
+      callback(res);
+    });
+  },
+  
   update: function (conditionOne, conditionTwo, callback) {
     orm.update("orders", conditionOne, conditionTwo, function (res) {
       callback(res);
@@ -57,7 +68,6 @@ const ordersUtil = {
     const orderArray = [];
     for (idIndex = 0; idIndex < uniqueIdsArray.length; idIndex++) {
       const order = new Order(uniqueIdsArray[idIndex]);
-      console.log(order);
       for (dataIndex = 0; dataIndex < dataArray.length; dataIndex++) {
         if (dataArray[dataIndex].order_id === order.id) {
           order.price += parseFloat(dataArray[dataIndex].price);
@@ -65,9 +75,8 @@ const ordersUtil = {
           order.sales_tax += parseFloat([dataIndex].sales_tax);
           const quantity = dataArray[dataIndex].quantity;
           const item = dataArray[dataIndex].item;
-          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item.replace("_", " ")};
+          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item};
           order.description.push(itemDesc);
-          console.log(order.description);
           if (order.customer === null) {
             order.customer = dataArray[dataIndex].customer;
           }
@@ -78,7 +87,6 @@ const ordersUtil = {
         }
       } orderArray.push(order);
     } 
-    console.log(orderArray);
     return (orderArray);
   },
   convertTime: function(mySQLTime) {

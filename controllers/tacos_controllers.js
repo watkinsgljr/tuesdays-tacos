@@ -14,16 +14,14 @@ router.get("/", function(req, res) {
   ordersUtil.all(function(data) {
     const uniqueIds = ordersUtil.getUniqueIds(data);
     data = ordersUtil.groupOrders(uniqueIds, data);
-    console.log(uniqueIds);
-    console.log(data);
+
     const ordersObject = {
       orders: data,
       pending: false,
     };
 
     
-    console.log(uniqueIds);
-    console.log(ordersObject.orders);
+
 
     res.render("index", ordersObject);
   });
@@ -33,16 +31,13 @@ router.get("/pending", function(req, res) {
     ordersUtil.pending(function(data) {
       const uniqueIds = ordersUtil.getUniqueIds(data);
       data = ordersUtil.groupOrders(uniqueIds, data);
-      console.log(uniqueIds);
-      console.log(data);
+
       const ordersObject = {
         orders: data,
         pending: true,
       };
 
-      
-      console.log(uniqueIds);
-      console.log(ordersObject.orders);
+
 
       res.render("index", ordersObject);
     });
@@ -50,25 +45,39 @@ router.get("/pending", function(req, res) {
   router.get("/menu/:id", function(req, res) {
     const condition = "id = " + req.params.id;
   
-    console.log(condition);
   
     ordersUtil.searchByItem(condition, function(data) {
 
       const orderDataObj = ordersUtil.initOrder(data[0]); 
 
-      console.log(orderDataObj);
       res.send(orderDataObj);
     });
   });
 
 router.post("/new-order", function(req, res) {
-  ordersUtil.create([
-    "name", "sleepy"
-  ], [
-    req.body.name, req.body.sleepy
-  ], function(result) {
+
+  ordersUtil.createOrder(req.body.order, function(result) {
+    console.log("Order Added successfully 1!");
+
+    
     // Send back the ID of the new quote
-    res.json({ id: result.insertId });
+      console.log(result);
+      console.log("Order Added successfully!");
+      res.json({ id: result.insertId });
+
+  });
+});
+
+router.post("/new-item-ordered", function(req, res) {
+  console.log("-----123---------THIS IS THE REQ BODY!!---------------");
+  console.log(req.body);
+  ordersUtil.createItemsOrdered(req.body.itemCart, req.body.order.id, function(result) {
+
+    
+    // Send back the ID of the new quote
+      console.log("Items Added successfully!");
+      res.send({ id: result.insertId });
+
   });
 });
 

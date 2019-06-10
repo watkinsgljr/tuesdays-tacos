@@ -5,7 +5,7 @@ const connection = require("../config/connection.js");
 function printQuestionMarks(num) {
     const arr = [];
 
-    for (const i = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {
         arr.push("?");
     }
 
@@ -39,7 +39,7 @@ const orm = {
     all: function (tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
         const queryString = 'SELECT ??.??, ??.id as order_id, ??.??, ??.??, ??.??, ??.??, ??.??, ??.?? FROM ??  LEFT JOIN ?? ON ??.?? = ??.id LEFT JOIN ?? ON ??.id = ??.item_id;';
 
-      console.log(queryString);
+        console.log(queryString);
 
 
         connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableTwo,
@@ -86,19 +86,19 @@ const orm = {
             });
     },
 
-    orderDetails: function (orderId, tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableOneI5, 
+    orderDetails: function (orderId, tableOne, tableTwo, tableThree, tableOneI1, tableOneI2, tableOneI3, tableOneI4, tableOneI5,
         tableOneI6, tableTwoI1, tableTwoI2, tableTwoI3, tableThreeI1, callback) {
         const queryString = "SELECT ??.??, ??.id as 'order_id',\
       ??.??, ??.??, ??.??, ??.??, ??.??,\
       ??.??, ??.??, ??.?? ??.??\
       FROM ??\
       INNER JOIN ?? ON ??.?? = ??.id and ??.id = " + orderId +
-      "LEFT JOIN ?? ON ??.id = ??.item_id;";
+            "LEFT JOIN ?? ON ??.id = ??.item_id;";
 
 
         connection.query(queryString, [tableOne, tableOneI1, tableOne, tableOne, tableOneI2, tableOne, tableOneI3, tableOne,
-            tableOneI4, tableOne, tableOneI5, tableOne, tableOneI6, tableTwo, tableTwoI1, tableTwo, tableTwoI2, tableTwo, 
-            tableTwoI3, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo, tableTwoI3, tableOne, tableOne, 
+            tableOneI4, tableOne, tableOneI5, tableOne, tableOneI6, tableTwo, tableTwoI1, tableTwo, tableTwoI2, tableTwo,
+            tableTwoI3, tableThree, tableThreeI1, tableOne, tableTwo, tableTwo, tableTwoI3, tableOne, tableOne,
             tableThree, tableThree, tableTwo],
             function (err, result) {
                 if (err) {
@@ -107,34 +107,24 @@ const orm = {
                 callback(result);
             });
     },
-    create: function (tableOne, tableTwo, OrderObj, ItemOrderedObj, callback) {
+    createOrder: function (tableOne, OrderObj, callback) {
 
-        tableOneCols = Object.keys(OrderObj);
-        tableTwoCols = Object.keys(ItemOrderedObj);
-        tableOneVals = Object.values(OrderObj);
-        tableTwoVals = Object.values(ItemOrderedObj);
+        let tableOneCols = Object.keys(OrderObj);
+        let tableOneVals = Object.values(OrderObj);
+        console.log("-------------ORDER OBJECT---------");
+        console.log(OrderObj);
+
 
         let tableOneQueryString = "INSERT INTO " + tableOne;
 
         tableOneQueryString += " (";
-        tableOneQueryString += orderCols.toString();
+        tableOneQueryString += tableOneCols.toString();
         tableOneQueryString += ") ";
         tableOneQueryString += "VALUES (";
-        tableOneQueryString += printQuestionMarks(orderVals.length);
+        tableOneQueryString += printQuestionMarks(tableOneVals.length);
         tableOneQueryString += ") ";
 
         console.log(tableOneQueryString);
-
-        let tableTwoQueryString = "INSERT INTO " + tableTwo;
-
-        tableTwoQueryString += " (";
-        tableTwoQueryString += orderCols.toString();
-        tableTwoQueryString += ") ";
-        tableTwoQueryString += "VALUES (";
-        tableTwoQueryString += printQuestionMarks(orderVals.length);
-        tableTwoQueryString += ") ";
-
-        console.log(tableTwoQueryString);
 
         connection.query(tableOneQueryString, tableOneVals, function (err, result) {
             if (err) {
@@ -142,67 +132,104 @@ const orm = {
             }
 
             callback(result);
+
         });
 
-        connection.query(tableTwoQueryString, tableTwoVals, function (err, result) {
-            if (err) {
-                throw err;
-            }
-
-            callback(result);
-        });
     },
-    // An example of objColVals would be {name: panther, sleepy: true}
-    update: function (table, objColVals, condition, callback) {
-        let queryString = "UPDATE " + table;
 
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += objToSql(condition);
+    createItemsOrdered: function (tableTwo, itemsOrderedArray, orderId, callback) {
 
-        console.log(queryString);
-        connection.query(queryString, function (err, result) {
-            if (err) {
-                throw err;
-            }
+        console.log("=============items ordered method starts here================")
 
-            callback(result);
-        });
+        console.log(orderId);
+
+        for (i = 0; i < itemsOrderedArray.length; i++) {
+
+            itemsOrderedArray[i].order_id = orderId;
+            let tableTwoCols = Object.keys(itemsOrderedArray[i]);
+            let tableTwoVals = Object.values(itemsOrderedArray[i]);
+
+            let tableTwoQueryString = "INSERT INTO " + tableTwo;
+
+            tableTwoQueryString += " (";
+            tableTwoQueryString += tableTwoCols.toString();
+            tableTwoQueryString += ") ";
+            tableTwoQueryString += "VALUES (";
+            tableTwoQueryString += printQuestionMarks(tableTwoVals.length);
+            tableTwoQueryString += ") ";
+
+            console.log(tableTwoQueryString);
+
+            connection.query(tableTwoQueryString, tableTwoVals, function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                callback(result);
+            });
+        }
+
     },
-    delete: function (tableOne, tableTwo, conditionOne, conditionTwo, callback) {
-        let tableOneQueryString = "DELETE FROM " + tableOne;
-        tableOneQueryString += " WHERE ";
-        tableOneQueryString += conditionOne;
 
-        connection.query(tableOneQueryString, function (err, result) {
+// An example of objColVals would be {name: panther, sleepy: true}
+update: function (table, objColVals, condition, callback) {
+    let queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += objToSql(condition);
+
+    connection.query(queryString, function (err, result) {
+        if (err) {
+            throw err;
+        }
+
+        callback(result);
+    });
+},
+delete: function (tableOne, tableTwo, conditionOne, conditionTwo, callback) {
+    let tableOneQueryString = "DELETE FROM " + tableOne;
+    tableOneQueryString += " WHERE ";
+    tableOneQueryString += conditionOne;
+
+    connection.query(tableOneQueryString, function (err, result) {
+        if (err) {
+            throw err;
+        }
+
+        callback(result);
+    });
+
+    let tableTwoQueryString = "DELETE FROM " + tableTwo;
+    tableTwoQueryString += " WHERE ";
+    tableTwoQueryString += conditionTwo;
+
+    connection.query(tableTwoQueryString, function (err, result) {
+        if (err) {
+            throw err;
+        }
+
+        callback(result);
+    });
+},
+getUniqueIds: function (array) {
+    const uniqueIds = [];
+    for (i = 0; i < array.length; i++) {
+        if (uniqueIds.indexOf(array[i].order_id) === -1) {
+            uniqueIds.push(array[i].order_id);
+        }
+    } return uniqueIds;
+},
+getMax: function (table, input, callback) {
+    const queryString = "SELECT MAX(??) as 'order_id' from ??"
+    connection.query(queryString, [input, table],
+        function (err, result) {
             if (err) {
                 throw err;
             }
-
             callback(result);
         });
-
-        let tableTwoQueryString = "DELETE FROM " + tableTwo;
-        tableTwoQueryString += " WHERE ";
-        tableTwoQueryString += conditionTwo;
-
-        connection.query(tableTwoQueryString, function (err, result) {
-            if (err) {
-                throw err;
-            }
-
-            callback(result);
-        });
-    },
-    getUniqueIds: function(array) {
-        const uniqueIds = [];
-        for (i = 0; i < array.length; i++) {
-            if (uniqueIds.indexOf(array[i].order_id) === -1) {
-                uniqueIds.push(array[i].order_id);
-            }
-        } return uniqueIds;
-    }
+}
 };
 
 
