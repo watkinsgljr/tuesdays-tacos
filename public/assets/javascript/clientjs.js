@@ -7,17 +7,7 @@ const itemCart = [];
 
 let currentItemCustomization;
 
-console.log(currentOrder);
 
-// $(".tomatoes .selection-btn .xtra").trigger("click");
-
-$('input[name=shell][id="soft"]').attr('checked', true);
-
-console.log("should say reg above");
-
-console.log($(".tomatoes"));
-
-console.log("should say reg above");
 
 function ItemCustomization(currentItemObj) {
     this.lettuce = currentItemObj.lettuce;
@@ -27,6 +17,14 @@ function ItemCustomization(currentItemObj) {
     this.sauce = currentItemObj.sauce;
     this.shell = currentItemObj.shell;
     this.shell_type = currentItemObj.shell_type;
+}
+
+function Order() {
+    this.customer;
+    this.order_status = "pending";
+    this.price = 0;
+    this.sales_tax;
+    this.total_price;
 }
 
 
@@ -39,9 +37,7 @@ function ItemCustomization(currentItemObj) {
 
 $(".item2").on("click", function (event) {
     event.preventDefault();
-    console.log("test");
     const id = $(this).data("id");
-    console.log(id);
 
 
     $.ajax("/menu/" + id, {
@@ -62,7 +58,6 @@ $(".item2").on("click", function (event) {
                 const amount = currentItemCustomization[toppings[i]];
                 $("." + toppings[i]).data(topping, amount);
                 $("." + topping + " .selection-btn ." + amount).trigger("click");
-                console.log($("." + toppings[i]).data(toppings[i]));
             };
 
             $(".user-selected").text(response.menuItem.item.replace("_", " "));
@@ -74,14 +69,12 @@ $(".item2").on("click", function (event) {
 $(".selection-btn").on("click", function (event) {
     event.preventDefault();
 
-    console.log($(this));
-
     if (currentItemCustomization != undefined) {
         const amount = $(this)[0].outerText.toLowerCase();
         const topping = $(this)[0].childNodes[1].name;
         currentItemCustomization[topping] = amount;
-
-        console.log(currentItemCustomization);
+        currentItem[topping] = amount;
+        console.log(currentItem);
     }
     
 
@@ -89,28 +82,32 @@ $(".selection-btn").on("click", function (event) {
 
 });
 
+$(".add-item-to-order").on("click", function () {
 
+    itemCart.push(currentItem);
+    
+    if (currentOrder === undefined) {
+        currentOrder = new Order();
+        currentOrder.customer = $(".customer-name-field");
+        currentOrder.price = parseFloat(currentItem.price.toFixed(2));
+        currentOrder.sales_tax = parseFloat((currentOrder.price * .07).toFixed(2));
+        currentOrder.total_price = currentOrder.price + currentOrder.sales_tax;
+        $(".customer-name-field").attr('disabled', 'disabled');
+        console.log(currentOrder);
 
-// function makeButtonActive(element) {
-//     elemet1.addClass("focus active");
-//     element2.removeClass("focus active");
-//     element3.removeClass("focus active");
-//     element.removeClass("focus active");
-// };
+    } else {
+        currentOrder.price += parseFloat(currentItem.price).toFixed(2);
+        currentOrder.sales_tax = parseFloat((currentItem.price * .07).toFixed(2));
+        currentOrder.total_price = parseFloat((currentOrder.price + currentOrder.sales_tax).toFixed(2));
+        console.log(currentOrder);
+    }
+    
 
+    currentItem = null;
+    $(".selection-btn").removeClass("active");
+    console.log("Order Added");
 
-// function switchSelection(selection) {
-//     elemement.data(selection)
-
-// };
-
-// $(".lettuce").data("lettuce")
-// $(".tomatoes").data("lettuce"
-// $(".onion").data("lettuce"
-// $(".cheese").data("lettuce"
-// $(".sauce").data("lettuce"
-// $(".shell").data("lettuce"
-// $(".shell_type").data("lettuce"
+});
 
 
 
