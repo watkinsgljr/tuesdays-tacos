@@ -81,13 +81,13 @@ router.post("/new-item-ordered", function(req, res) {
   });
 });
 
-router.put("/edit-order/:id", function(req, res) {
+router.put("/change-status/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
   console.log("condition", condition);
 
   ordersUtil.update({
-    sleepy: req.body.sleepy
+    order_status: "completed"
   }, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
@@ -97,15 +97,12 @@ router.put("/edit-order/:id", function(req, res) {
     }
   });
 });
-router.put("/change-status/:id", function(req, res) {
-  const condition = "id = " + req.params.id;
 
-  console.log("condition", condition);
+router.delete("/delete-item-ordered/:id", function(req, res) {
+  const condition = "order_id = " + req.params.id;
 
-  ordersUtil.update({
-    sleepy: req.body.sleepy
-  }, condition, function(result) {
-    if (result.changedRows == 0) {
+  ordersUtil.deleteItemsOrdered(condition, function(result) {
+    if (result.affectedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
     } else {
@@ -117,7 +114,7 @@ router.put("/change-status/:id", function(req, res) {
 router.delete("/delete-order/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
-  ordersUtil.delete(condition, function(result) {
+  ordersUtil.deleteOrder(condition, function(result) {
     if (result.affectedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();

@@ -177,7 +177,7 @@ update: function (table, objColVals, condition, callback) {
     queryString += " SET ";
     queryString += objToSql(objColVals);
     queryString += " WHERE ";
-    queryString += objToSql(condition);
+    queryString += condition;
 
     connection.query(queryString, function (err, result) {
         if (err) {
@@ -187,12 +187,12 @@ update: function (table, objColVals, condition, callback) {
         callback(result);
     });
 },
-delete: function (tableOne, tableTwo, conditionOne, conditionTwo, callback) {
-    let tableOneQueryString = "DELETE FROM " + tableOne;
-    tableOneQueryString += " WHERE ";
-    tableOneQueryString += conditionOne;
+deleteItemsOrdered: function (table, condition, callback) {
+    let queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
 
-    connection.query(tableOneQueryString, function (err, result) {
+    connection.query(queryString, function (err, result) {
         if (err) {
             throw err;
         }
@@ -200,11 +200,13 @@ delete: function (tableOne, tableTwo, conditionOne, conditionTwo, callback) {
         callback(result);
     });
 
-    let tableTwoQueryString = "DELETE FROM " + tableTwo;
-    tableTwoQueryString += " WHERE ";
-    tableTwoQueryString += conditionTwo;
+},
+deleteOrder: function (table, condition, callback) {
+    let queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
 
-    connection.query(tableTwoQueryString, function (err, result) {
+    connection.query(queryString, function (err, result) {
         if (err) {
             throw err;
         }
