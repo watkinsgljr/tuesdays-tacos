@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <div class="card" style="padding-top: .5rem !important" data-id="{{id}}">
     <div class="card-body2" style="padding: .5rem !important">
         <h6 class="order-number">{{id}}<span class="time-ordered">{{time_ordered}}</span></h6>
@@ -14,8 +8,10 @@
 
         {{/each}}
 
-        <button href="#" class="btn btn-primary btn-sm complete-order" data-id="{{id}}">Completed</button>
-        <button href="#" class="btn btn-primary btn-sm delete-order" data-id="{{id}}">Delete</button>
+        <div class="button-container">
+            <button href="#" class="btn btn-outline-warning btn-sm card-btns complete-order" data-id="{{id}}">Completed</button>
+            <button href="#" class="btn btn-outline-warning btn-sm card-btns delete-order" data-id="{{id}}">Delete</button>
+        </div>
     </div>
 </div>
 

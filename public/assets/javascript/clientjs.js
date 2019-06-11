@@ -98,15 +98,17 @@ $(".add-item-to-order").on("click", function () {
         currentOrder = new Order();
         currentOrder.customer = $(".customer-name-field").val();
         currentOrder.price = parseFloat(currentItem.price.toFixed(2));
+        console.log(currentOrder);
         currentOrder.sales_tax = parseFloat((currentOrder.price * .07).toFixed(2));
-        currentOrder.total_price = currentOrder.price + currentOrder.sales_tax;
+        currentOrder.total_price = parseFloat(currentOrder.price) + parseFloat(currentOrder.sales_tax);
         $(".customer-name-field").attr('disabled', 'disabled');
         console.log(currentOrder);
 
     } else {
-        currentOrder.price += parseFloat(currentItem.price).toFixed(2);
+        currentOrder.price = currentOrder.price + currentItem.price;
+        console.log(currentOrder.price);
         currentOrder.sales_tax = parseFloat((currentItem.price * .07).toFixed(2));
-        currentOrder.total_price = currentOrder.price + currentOrder.sales_tax;
+        currentOrder.total_price = parseFloat(currentOrder.price) + parseFloat(currentOrder.sales_tax);
         console.log(currentOrder);
     }
 

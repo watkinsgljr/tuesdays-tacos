@@ -29,6 +29,8 @@ router.get("/", function(req, res) {
 
 router.get("/pending", function(req, res) {
     ordersUtil.pending(function(data) {
+      console.log("==============data=============");
+      console.log(data);
       const uniqueIds = ordersUtil.getUniqueIds(data);
       data = ordersUtil.groupOrders(uniqueIds, data);
 
@@ -36,6 +38,8 @@ router.get("/pending", function(req, res) {
         orders: data,
         pending: true,
       };
+
+      console.log(ordersObject);
 
 
 
@@ -129,3 +133,18 @@ router.delete("/delete-order/:id", function(req, res) {
 
 // Export routes for server.js to use.
 module.exports = router;
+
+
+
+// import fs from 'fs-promise'
+
+// async function printFiles () {
+//   const files = await getFilePaths() // Assume this works fine
+
+//   files.forEach(async (file) => {
+//     const contents = await fs.readFile(file, 'utf8')
+//     console.log(contents)
+//   })
+// }
+
+// printFiles()
