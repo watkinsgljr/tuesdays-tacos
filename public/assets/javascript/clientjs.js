@@ -1,4 +1,5 @@
 
+
 let currentOrder;
 
 let currentItem;
@@ -176,6 +177,59 @@ $(".submit-order").on("click", function () {
         );
 
 });
+
+$(".complete-order").on("click", function () {
+
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    const id = $(this).data("id");
+    console.log(id);
+
+
+    // Send the POST request.
+    $.ajax("/change-status/" + id, {
+      type: "PUT",
+    }).then(
+      function() {
+        console.log("Order Completed");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+
+});
+
+$(".delete-order").on("click", function () {
+
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    const id = $(this).data("id");
+
+    console.log(id);
+
+    $.ajax("/delete-items-ordered/" + id, {
+      type: "DELETE",
+
+    }).then(function(){
+
+        $.ajax("/delete-order/" + id, {
+            type: "DELETE",
+          })
+
+    }).then(
+      function() {
+        console.log("Orders and All Items Related Deleted");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+
+});
+
+
+
 
 
 

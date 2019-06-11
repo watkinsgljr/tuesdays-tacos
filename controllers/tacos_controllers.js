@@ -83,12 +83,13 @@ router.post("/new-item-ordered", function(req, res) {
 
 router.put("/change-status/:id", function(req, res) {
   const condition = "id = " + req.params.id;
+  console.log(req.params.id);
+  console.log(req.params);
 
   console.log("condition", condition);
+  const update = "order_status = 'completed'"
 
-  ordersUtil.update({
-    order_status: "completed"
-  }, condition, function(result) {
+  ordersUtil.update(update, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
@@ -98,7 +99,9 @@ router.put("/change-status/:id", function(req, res) {
   });
 });
 
-router.delete("/delete-item-ordered/:id", function(req, res) {
+router.delete("/delete-items-ordered/:id", function(req, res) {
+  console.log(req.params.id);
+  console.log(req.params);
   const condition = "order_id = " + req.params.id;
 
   ordersUtil.deleteItemsOrdered(condition, function(result) {

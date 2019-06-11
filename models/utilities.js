@@ -45,18 +45,18 @@ const ordersUtil = {
     });
   },
   
-  update: function (objColVals, condition, callback) {
-    orm.update("orders", objColVals, condition, function (res) {
+  update: function (update, condition, callback) {
+    orm.update("orders", update, condition, function (res) {
       callback(res);
     });
   },
   deleteItemsOrdered: function (condition, callback) {
-    orm.delete("items_ordered", condition, function (res) {
+    orm.deleteItemsOrdered("items_ordered", condition, function (res) {
       callback(res);
     });
   },
   deleteOrder: function (condition, callback) {
-    orm.delete("orders", condition, function (res) {
+    orm.deleteOrder("orders", condition, function (res) {
       callback(res);
     });
   },

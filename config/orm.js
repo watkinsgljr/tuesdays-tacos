@@ -23,10 +23,10 @@ function objToSql(ob) {
         if (Object.hasOwnProperty.call(ob, key)) {
 
             if (typeof value === "string" && value.indexOf(" ") >= 0) {
-                value = "'" + value + "'";
+                value = '"' + value + '"';
             }
 
-            arr.push(key + "=" + value);
+            arr.push(key + " = " + value);
         }
     }
 
@@ -171,13 +171,15 @@ const orm = {
     },
 
 // An example of objColVals would be {name: panther, sleepy: true}
-update: function (table, objColVals, condition, callback) {
+update: function (table, update, condition, callback) {
     let queryString = "UPDATE " + table;
 
     queryString += " SET ";
-    queryString += objToSql(objColVals);
+    queryString += update;
     queryString += " WHERE ";
     queryString += condition;
+
+    console.log(queryString);
 
     connection.query(queryString, function (err, result) {
         if (err) {
@@ -192,6 +194,8 @@ deleteItemsOrdered: function (table, condition, callback) {
     queryString += " WHERE ";
     queryString += condition;
 
+    console.log(queryString);
+
     connection.query(queryString, function (err, result) {
         if (err) {
             throw err;
@@ -205,6 +209,7 @@ deleteOrder: function (table, condition, callback) {
     let queryString = "DELETE FROM " + table;
     queryString += " WHERE ";
     queryString += condition;
+    console.log(queryString);
 
     connection.query(queryString, function (err, result) {
         if (err) {
