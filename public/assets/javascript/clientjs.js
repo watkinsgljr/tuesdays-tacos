@@ -140,6 +140,7 @@ $(".add-item-to-order").on("click", function () {
     currentItem = null;
     $(".selection-btn").removeClass("active");
     console.log("Order Added");
+    showToast();
 
 });
 
@@ -229,6 +230,10 @@ $(".delete-order").on("click", function () {
     );
 
 });
+
+function showToast(){
+    $(".added-toast").toast('show');
+};
 
 
 

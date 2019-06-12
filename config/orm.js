@@ -58,7 +58,7 @@ const orm = {
         const queryString = "SELECT ??.??, ??.id as 'order_id',\
      ??.??, ??.??, ??.??, ??.??, ??.??\
       FROM ??\
-      LEFT JOIN ?? ON ??.?? = ??.id and ??.?? = 'pending'\
+      INNER JOIN ?? ON ??.?? = ??.id and ??.?? = 'pending'\
       LEFT JOIN ?? ON ??.id = ??.item_id;";
 
 
@@ -109,6 +109,11 @@ const orm = {
     },
     createOrder: function (tableOne, OrderObj, callback) {
 
+        console.log("===========this is before the parse and object.values happen", OrderObj);
+        OrderObj.price = parseFloat(OrderObj.price);
+        OrderObj.sales_tax = parseFloat(OrderObj.sales_tax);
+        OrderObj.total_price = parseFloat(OrderObj.total_price);
+
         let tableOneCols = Object.keys(OrderObj);
         let tableOneVals = Object.values(OrderObj);
         console.log("-------------ORDER OBJECT---------");
@@ -125,6 +130,8 @@ const orm = {
         tableOneQueryString += ") ";
 
         console.log(tableOneQueryString);
+        console.log("=====================================  table one vals=======================");
+        console.log(tableOneVals);
 
         connection.query(tableOneQueryString, tableOneVals, function (err, result) {
             if (err) {
@@ -143,30 +150,43 @@ const orm = {
 
         console.log(orderId);
 
+        const rows = [];
+        let tableTwoCols = ["order_id"]
+        tableTwoCols.push(Object.keys(itemsOrderedArray[0]));
+        
+        
+
         for (i = 0; i < itemsOrderedArray.length; i++) {
 
             itemsOrderedArray[i].order_id = orderId;
-            let tableTwoCols = Object.keys(itemsOrderedArray[i]);
             let tableTwoVals = Object.values(itemsOrderedArray[i]);
+            tableTwoCols = Object.keys(itemsOrderedArray[0]);
+            rows.push(tableTwoVals);
+
+        }
+
+        console.log("ARRAY OF ARRAYS FOR BULK INSERT======================");
+        console.log(rows);
+
+
+            
 
             let tableTwoQueryString = "INSERT INTO " + tableTwo;
 
             tableTwoQueryString += " (";
             tableTwoQueryString += tableTwoCols.toString();
             tableTwoQueryString += ") ";
-            tableTwoQueryString += "VALUES (";
-            tableTwoQueryString += printQuestionMarks(tableTwoVals.length);
-            tableTwoQueryString += ") ";
+            tableTwoQueryString += "VALUES ?";
 
             console.log(tableTwoQueryString);
 
-            connection.query(tableTwoQueryString, tableTwoVals, function (err, result) {
+            connection.query(tableTwoQueryString, [rows], function (err, result) {
                 if (err) {
                     throw err;
                 }
                 callback(result);
             });
-        }
+        
 
     },
 
