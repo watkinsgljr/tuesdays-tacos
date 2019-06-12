@@ -74,7 +74,7 @@ router.post("/new-order", function(req, res) {
 
 router.post("/new-item-ordered", function(req, res) {
   console.log("-----123---------THIS IS THE REQ BODY!!---------------");
-  console.log(req.body);
+  // console.log(req.body);
   ordersUtil.createItemsOrdered(req.body.itemCart, req.body.order.id, function(result) {
 
     

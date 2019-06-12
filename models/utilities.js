@@ -81,7 +81,7 @@ const ordersUtil = {
           order.total_price = dataArray[dataIndex].sales_tax + dataArray[dataIndex].price;
           const quantity = dataArray[dataIndex].quantity;
           const item = dataArray[dataIndex].item;
-          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item};
+          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item.replace("_", " ")};
           order.description.push(itemDesc);
           if (order.customer === null) {
             order.customer = dataArray[dataIndex].customer;
