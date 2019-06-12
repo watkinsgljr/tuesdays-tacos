@@ -2,6 +2,11 @@
     <div class="card-body2" style="padding: .5rem !important">
         <h6 class="order-number">{{id}}<span class="time-ordered">{{time_ordered}}</span></h6>
         <h6 class="card-subtitle mb-2 text-muted customer-name">{{customer}}</h6>
+
+        <strong>Order List: </strong>
+
+
+
         {{#each description}}
 
         {{> orderDescription/orderDescription}}
@@ -10,7 +15,8 @@
 
         <div class="button-container">
             <button href="#" class="btn btn-light btn-sm card-btns complete-order" data-id="{{id}}">Completed</button>
-            <button href="#" class="btn btn-light-warning btn-sm card-btns delete-order" data-id="{{id}}">Delete</button>
+            <button href="#" class="btn btn-light-warning btn-sm card-btns delete-order"
+                data-id="{{id}}">Delete</button>
         </div>
     </div>
 </div>

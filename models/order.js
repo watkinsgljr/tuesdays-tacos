@@ -18,6 +18,7 @@ function Order(menuItemObjOrId) {
 
 
     this.id = menuItemObjOrId;
+    this.item = null;
     this.customer = null;
     this.orderStatus = "pending";
     this.price = 0;

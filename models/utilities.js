@@ -73,15 +73,18 @@ const ordersUtil = {
     const orderArray = [];
     for (idIndex = 0; idIndex < uniqueIdsArray.length; idIndex++) {
       const order = new Order(uniqueIdsArray[idIndex]);
-      console.log(order.price);
+      console.log("inside loop 1", order.price);
       for (dataIndex = 0; dataIndex < dataArray.length; dataIndex++) {
+        console.log("inside loop 2", order.price);
         if (dataArray[dataIndex].order_id === order.id) {
+          console.log("inside if condition", order.price);
           order.price += dataArray[dataIndex].price;
-          order.sales_tax += dataArray[dataIndex].sales_tax;
+          order.item = dataArray[dataIndex].item.replace("_", " ");
+          order.sales_tax = parseInt(dataArray[dataIndex].sales_tax) + parseInt(order.sales_tax);
           order.total_price = dataArray[dataIndex].sales_tax + dataArray[dataIndex].price;
           const quantity = dataArray[dataIndex].quantity;
           const item = dataArray[dataIndex].item;
-          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].item.replace("_", " ")};
+          itemDesc = {desc: dataArray[dataIndex].quantity + " " + dataArray[dataIndex].description};
           order.description.push(itemDesc);
           if (order.customer === null) {
             order.customer = dataArray[dataIndex].customer;
@@ -91,8 +94,11 @@ const ordersUtil = {
           }
 
         }
-      } orderArray.push(order);
+      } 
+      console.log(order);
+      orderArray.push(order);
     } 
+    console.log(orderArray);
     return orderArray;
   },
   convertTime: function(mySQLTime) {
