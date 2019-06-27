@@ -40,7 +40,7 @@ router.get("/pending", function(req, res) {
       };
 
       console.log(ordersObject);
-      console.log(ordersObject.orders[0].description);
+      // console.log(ordersObject.orders[0].description);
 
 
 
